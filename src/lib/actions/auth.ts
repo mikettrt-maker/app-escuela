@@ -3,7 +3,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { createSession, deleteSession, getSession } from '@/lib/session'
 
-export async function login(formData: FormData) {
+export async function login(prevState: { error?: string; success?: boolean; redirect?: string } | undefined, formData: FormData) {
   const supabase = await createClient()
   const email = formData.get('email') as string
   const password = formData.get('password') as string
