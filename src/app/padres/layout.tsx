@@ -1,6 +1,6 @@
 'use client'
 
-import { signOut } from '@/lib/actions/auth'
+import { SignOutButton } from '@/components/sign-out-button'
 
 export default function PadresLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -13,14 +13,7 @@ export default function PadresLayout({ children }: { children: React.ReactNode }
             </div>
             <span className="text-lg font-bold text-[var(--text-primary)]">CED Escuela - Padres</span>
           </div>
-          <form action={signOut}>
-            <button
-              type="submit"
-              className="rounded-lg border border-[var(--border)] px-4 py-2 text-sm text-[var(--text-secondary)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
-            >
-              Cerrar Sesión
-            </button>
-          </form>
+          <SignOutButton />
         </div>
       </header>
       <main className="p-6">{children}</main>

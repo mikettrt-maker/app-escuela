@@ -1,10 +1,16 @@
 'use client'
 
-import { useActionState } from 'react'
-import { loginWithEmail } from '@/lib/actions/auth'
+import { useActionState, useEffect } from 'react'
+import { login } from '@/lib/actions/auth'
 
 export default function LoginPage() {
-  const [state, action, pending] = useActionState(loginWithEmail, undefined)
+  const [state, action, pending] = useActionState(login, undefined)
+
+  useEffect(() => {
+    if (state?.success && state.redirect) {
+      window.location.href = state.redirect
+    }
+  }, [state])
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[var(--background)] p-4">

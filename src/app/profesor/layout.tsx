@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { signOut } from '@/lib/actions/auth'
 import { cn } from '@/lib/utils'
+import { SignOutButton } from '@/components/sign-out-button'
 
 export default function ProfesorLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -42,14 +42,7 @@ export default function ProfesorLayout({ children }: { children: React.ReactNode
               ))}
             </nav>
           </div>
-          <form action={signOut}>
-            <button
-              type="submit"
-              className="rounded-lg border border-[var(--border)] px-4 py-2 text-sm text-[var(--text-secondary)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
-            >
-              Cerrar Sesión
-            </button>
-          </form>
+          <SignOutButton />
         </div>
       </header>
       <main className="p-6">{children}</main>

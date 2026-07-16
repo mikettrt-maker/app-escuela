@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { SignOutButton } from '@/components/sign-out-button'
 
 const navItems = [
   { href: '/director', label: 'Dashboard', icon: '📊' },
@@ -47,6 +48,10 @@ export function Sidebar() {
           )
         })}
       </nav>
+
+      <div className="absolute bottom-4 left-0 right-0 px-4">
+        <SignOutButton />
+      </div>
     </aside>
   )
 }

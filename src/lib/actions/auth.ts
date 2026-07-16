@@ -2,9 +2,8 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { createSession, deleteSession, getSession } from '@/lib/session'
-import { redirect } from 'next/navigation'
 
-export async function loginWithEmail(prevState: { error: string } | undefined, formData: FormData) {
+export async function login(formData: FormData) {
   const supabase = await createClient()
   const email = formData.get('email') as string
   const password = formData.get('password') as string
@@ -18,18 +17,19 @@ export async function loginWithEmail(prevState: { error: string } | undefined, f
     .eq('id', data.user.id)
     .single()
 
-  if (profile) {
-    await createSession(profile.id, profile.role)
-  }
+  if (!profile) return { error: 'Perfil no encontrado' }
 
-  redirect('/')
+  await createSession(profile.id, profile.role)
+
+  const redirectTo = profile.role === 'director' ? '/director' : profile.role === 'teacher' ? '/profesor' : '/padres'
+  return { success: true, redirect: redirectTo }
 }
 
 export async function signOut() {
   const supabase = await createClient()
   await supabase.auth.signOut()
   await deleteSession()
-  redirect('/login')
+  return { success: true, redirect: '/login' }
 }
 
 export async function getCurrentUser() {
