@@ -3,7 +3,7 @@ import { decrypt } from '@/lib/session'
 
 export default async function proxy(req: NextRequest) {
   const path = req.nextUrl.pathname
-  if (path.startsWith('/_next') || path.startsWith('/api')) {
+  if (path.startsWith('/_next') || path.startsWith('/api') || path.startsWith('/setup') || path === '/') {
     return NextResponse.next()
   }
 
