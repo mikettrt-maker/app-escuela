@@ -21,7 +21,7 @@ export async function login(prevState: { error?: string; success?: boolean; redi
 
   if (!profile) return { error: 'Perfil no encontrado' }
 
-  await createSession(profile.id, profile.role)
+  await createSession(profile.id, profile.role, profile.nombre || '', profile.email)
 
   const redirectTo = profile.role === 'director' ? '/director' : profile.role === 'teacher' ? '/profesor' : '/padres'
   return { success: true, redirect: redirectTo }

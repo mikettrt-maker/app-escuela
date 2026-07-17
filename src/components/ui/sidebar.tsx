@@ -15,7 +15,7 @@ const navItems = [
   { href: '/director/avisos', label: 'Avisos', icon: '📢' },
 ]
 
-export function Sidebar() {
+export function Sidebar({ userName, userEmail }: { userName?: string; userEmail?: string }) {
   const pathname = usePathname()
 
   return (
@@ -24,7 +24,10 @@ export function Sidebar() {
         <div className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ background: 'var(--gradient)' }}>
           <span className="text-sm font-bold text-white">CE</span>
         </div>
-        <span className="text-lg font-bold text-[var(--text-primary)]">CED Escuela</span>
+        <div className="flex flex-col">
+          <span className="text-lg font-bold text-[var(--text-primary)]">CED Escuela</span>
+          {userName && <span className="text-xs text-[var(--text-secondary)]">{userName}</span>}
+        </div>
       </div>
 
       <nav className="space-y-1 p-4">

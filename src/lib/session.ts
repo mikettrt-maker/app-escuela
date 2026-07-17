@@ -5,7 +5,7 @@ import { cookies } from 'next/headers'
 const secretKey = process.env.SESSION_SECRET || 'fallback-secret'
 const encodedKey = new TextEncoder().encode(secretKey)
 
-export async function encrypt(payload: { userId: string; role: string; expiresAt: Date }) {
+export async function encrypt(payload: { userId: string; role: string; nombre: string; email: string; expiresAt: Date }) {
   return new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
@@ -18,15 +18,15 @@ export async function decrypt(session: string | undefined = '') {
     const { payload } = await jwtVerify(session, encodedKey, {
       algorithms: ['HS256'],
     })
-    return payload as { userId: string; role: string; expiresAt: Date }
+    return payload as { userId: string; role: string; nombre: string; email: string; expiresAt: Date }
   } catch {
     return null
   }
 }
 
-export async function createSession(userId: string, role: string) {
+export async function createSession(userId: string, role: string, nombre: string, email: string) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-  const session = await encrypt({ userId, role, expiresAt })
+  const session = await encrypt({ userId, role, nombre, email, expiresAt })
   const cookieStore = await cookies()
 
   cookieStore.set('session', session, {
