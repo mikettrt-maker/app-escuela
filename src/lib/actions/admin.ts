@@ -83,7 +83,7 @@ export async function createStudent(prevState: unknown, formData: FormData) {
   const nombre = formData.get('nombre') as string
   const grado = formData.get('grado') as string
 
-  const { error } = await admin.from('estudiantes').insert({ nombre, grado })
+  const { error } = await admin.from('estudiantes').insert({ nombre, grado, grupo: '' })
   if (error) return { error: error.message }
   return { success: true }
 }
