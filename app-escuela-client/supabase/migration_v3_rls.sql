@@ -41,9 +41,9 @@ ALTER TABLE asignaciones_profesores ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "director_manage_asignaciones" ON asignaciones_profesores;
 CREATE POLICY "director_manage_asignaciones" ON asignaciones_profesores
-  FOR ALL USING (
-    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'director')
-  );
+  FOR ALL
+  USING (EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'director'))
+  WITH CHECK (EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'director'));
 
 DROP POLICY IF EXISTS "teachers_view_own_asignaciones" ON asignaciones_profesores;
 CREATE POLICY "teachers_view_own_asignaciones" ON asignaciones_profesores
@@ -56,9 +56,9 @@ ALTER TABLE estudiantes ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "director_manage_estudiantes" ON estudiantes;
 CREATE POLICY "director_manage_estudiantes" ON estudiantes
-  FOR ALL USING (
-    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'director')
-  );
+  FOR ALL
+  USING (EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'director'))
+  WITH CHECK (EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'director'));
 
 DROP POLICY IF EXISTS "teachers_view_estudiantes" ON estudiantes;
 CREATE POLICY "teachers_view_estudiantes" ON estudiantes
@@ -77,9 +77,9 @@ ALTER TABLE notas_diarias ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "director_manage_notas" ON notas_diarias;
 CREATE POLICY "director_manage_notas" ON notas_diarias
-  FOR ALL USING (
-    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'director')
-  );
+  FOR ALL
+  USING (EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'director'))
+  WITH CHECK (EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'director'));
 
 DROP POLICY IF EXISTS "teachers_insert_notas" ON notas_diarias;
 CREATE POLICY "teachers_insert_notas" ON notas_diarias
@@ -115,9 +115,9 @@ ALTER TABLE asistencias ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "director_manage_asistencias" ON asistencias;
 CREATE POLICY "director_manage_asistencias" ON asistencias
-  FOR ALL USING (
-    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'director')
-  );
+  FOR ALL
+  USING (EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'director'))
+  WITH CHECK (EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'director'));
 
 DROP POLICY IF EXISTS "teachers_insert_asistencias" ON asistencias;
 CREATE POLICY "teachers_insert_asistencias" ON asistencias
@@ -153,9 +153,9 @@ ALTER TABLE avisos ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "director_manage_avisos" ON avisos;
 CREATE POLICY "director_manage_avisos" ON avisos
-  FOR ALL USING (
-    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'director')
-  );
+  FOR ALL
+  USING (EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'director'))
+  WITH CHECK (EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'director'));
 
 DROP POLICY IF EXISTS "read_avisos_authenticated" ON avisos;
 CREATE POLICY "read_avisos_authenticated" ON avisos
