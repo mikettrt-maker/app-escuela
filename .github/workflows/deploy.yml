@@ -1,0 +1,48 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ "master", "main" ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Create .env file
+        working-directory: ./app-escuela-client
+        run: |
+          echo "VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL }}" > .env
+          echo "VITE_SUPABASE_ANON_KEY=${{ secrets.VITE_SUPABASE_ANON_KEY }}" >> .env
+          echo "VITE_SUPABASE_EDGE_URL=${{ secrets.VITE_SUPABASE_EDGE_URL }}" >> .env
+
+      - name: Install dependencies
+        working-directory: ./app-escuela-client
+        run: npm ci
+
+      - name: Build
+        working-directory: ./app-escuela-client
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./app-escuela-client/dist
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4

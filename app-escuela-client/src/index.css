@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #e91e8c;
+  --primary-hover: #d6187e;
+  --secondary: #7c3aed;
+  --secondary-hover: #6d28d9;
+  --background: #0f0f14;
+  --surface: #1a1a24;
+  --surface-hover: #24242e;
+  --border: #2a2a3a;
+  --text-primary: #f1f1f6;
+  --text-secondary: #8b8b9e;
+  --error: #ef4444;
+  --success: #22c55e;
+  --warning: #eab308;
+  --gradient: linear-gradient(135deg, #e91e8c, #7c3aed);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+input, select, textarea, button {
+  font-family: inherit;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7);
+}
