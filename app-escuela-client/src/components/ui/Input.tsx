@@ -28,7 +28,7 @@ export function Input({
       step={step}
       min={min}
       max={max}
-      className={`w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder-[var(--text-secondary)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--primary)] ${className}`}
+      className={`w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-base text-[var(--text-primary)] placeholder-[var(--text-secondary)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent ${className}`}
     />
   )
 }
