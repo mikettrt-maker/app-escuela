@@ -81,7 +81,7 @@ export async function listParents() {
     .select('id, nombre, email')
     .eq('role', 'parent')
     .order('nombre')
-  const parents = data || []
+  const parents: any[] = data || []
   for (const p of parents) {
     const { data: students } = await supabase
       .from('estudiantes')
