@@ -46,7 +46,12 @@ export async function deleteUser(userId: string) {
 }
 
 export async function linkStudent(studentId: string, parentId: string) {
-  return callEdgeFunction('link-student', { studentId, parentId })
+  const { supabase } = await import('./supabase')
+  const { error } = await supabase
+    .from('estudiantes')
+    .update({ parent_id: parentId })
+    .eq('id', studentId)
+  if (error) throw error
 }
 
 export async function listTeachers() {
