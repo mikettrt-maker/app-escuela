@@ -2,7 +2,16 @@ node_modules
 dist
 .next
 .vercel
+<<<<<<< HEAD
 *.local
 .env
 Backup-codes-mikettrt.txt
 powerful-prism-*.json
+=======
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+.vercel
+>>>>>>> a714c53a09b70658ea3780fee4864e3805372900
