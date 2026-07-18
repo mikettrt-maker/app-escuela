@@ -71,14 +71,21 @@ export default function PadresPage() {
           ) : (
             <div className="space-y-2">
               {parents.map(p => (
-                <div key={p.id} className="flex items-center justify-between rounded-lg border border-[var(--border)] bg-[var(--background)] px-4 py-3">
-                  <div>
-                    <p className="text-sm font-medium text-[var(--text-primary)]">{p.nombre}</p>
-                    <p className="text-xs text-[var(--text-secondary)]">{p.email}</p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Button size="sm" variant="secondary" onClick={() => openLinkDialog(p)}>Vincular Estudiante</Button>
-                    <Button size="sm" variant="danger" onClick={() => handleDelete(p.id)}>Eliminar</Button>
+                <div key={p.id} className="rounded-lg border border-[var(--border)] bg-[var(--background)] px-4 py-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-[var(--text-primary)]">{p.nombre}</p>
+                      <p className="text-xs text-[var(--text-secondary)]">{p.email}</p>
+                      {p.estudiantes && p.estudiantes.length > 0 && (
+                        <p className="text-xs text-[var(--secondary)] mt-1">
+                          Hijos: {p.estudiantes.map((s: any) => s.nombre).join(', ')}
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-3 shrink-0">
+                      <Button size="sm" variant="secondary" onClick={() => openLinkDialog(p)}>Vincular Estudiante</Button>
+                      <Button size="sm" variant="danger" onClick={() => handleDelete(p.id)}>Eliminar</Button>
+                    </div>
                   </div>
                 </div>
               ))}
