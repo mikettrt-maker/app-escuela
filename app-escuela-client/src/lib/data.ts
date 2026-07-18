@@ -12,25 +12,16 @@ export const GRADO_MAP: Record<number, string> = {
   1: '1°', 2: '2°', 3: '3°', 4: '4°', 5: '5°', 6: '6°',
 }
 
-const EDGE_FUNCTIONS_URL = import.meta.env.VITE_SUPABASE_EDGE_URL || `${import.meta.env.VITE_SUPABASE_URL}/functions/v1`
-
 async function callEdgeFunction(name: string, body: Record<string, unknown>) {
   const { supabase } = await import('./supabase')
-  const { data: { session } } = await supabase.auth.getSession()
-  const token = session?.access_token
 
-  const res = await fetch(`${EDGE_FUNCTIONS_URL}/${name}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(body),
+  const { data, error } = await supabase.functions.invoke(name, {
+    body,
   })
 
-  const result = await res.json()
-  if (!res.ok) throw new Error(result.error || 'Error en la operación')
-  return result
+  if (error) throw new Error(error.message || 'Error en la operación')
+  if (data?.error) throw new Error(data.error)
+  return data
 }
 
 export async function createTeacherUser(nombre: string, email: string, password: string) {
